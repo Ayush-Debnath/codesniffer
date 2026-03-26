@@ -1,6 +1,7 @@
 import click
 from rich import print
 from realitycheck.parser.ast_parser import parse_file, extract_structure
+from realitycheck.analyzers.complexity import analyze_complexity
 
 @click.group()
 def main():
@@ -17,9 +18,13 @@ def analyze(file_path):
         return
 
     structure = extract_structure(tree)
+    complexity = analyze_complexity(tree)
 
-    print("[bold green]Analysis Result:[/bold green]")
+    print("[bold green]Structure:[/bold green]")
     print(structure)
+
+    print("\n[bold yellow]Complexity Analysis:[/bold yellow]")
+    print(complexity)
 
 if __name__ == "__main__":
     main()
