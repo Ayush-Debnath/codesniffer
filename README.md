@@ -13,3 +13,8 @@ AI-powered code analyzer that tells you the truth about your code.
 <!-- ## Installation
 ```bash
 pip install realitycheck-ai -->
+
+<!-- realitycheck analyze file.py -->
+
+
+
