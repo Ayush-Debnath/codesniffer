@@ -1,0 +1,9 @@
+[project]
+name = "realitycheck-ai"
+version = "0.1.0"
+description = "AI-powered code quality analyzer"
+authors = [{name = "Ayush"}]
+dependencies = ["rich", "click"]
+
+[project.scripts]
+realitycheck = "realitycheck.cli.main:main"
