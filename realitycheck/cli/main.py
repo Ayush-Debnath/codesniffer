@@ -10,6 +10,8 @@ from realitycheck.reporter.report_generator import display_report
 from realitycheck.analyzers.ai_detector import get_ai_feedback
 from realitycheck.analyzers.performance import analyze_performance
 from realitycheck.analyzers.security import analyze_security
+from realitycheck.core.aggregator import aggregate_project, generate_project_insights
+
 
 @click.group()
 def main():
@@ -85,13 +87,18 @@ def process_folder(folder_path):
 
     # 📊 PROJECT SUMMARY
     if results:
-        avg_score = sum(r["score"] for r in results) / len(results)
-        worst_file = min(results, key=lambda x: x["score"])
+        summary = aggregate_project(results)
+        insights = generate_project_insights(results)
 
         print("\n[bold magenta]📁 Project Summary:[/bold magenta]")
-        print(f"Files analyzed: {len(results)}")
-        print(f"Average Score: {round(avg_score, 2)}/10")
-        print(f"Worst File: {worst_file['file']} ({worst_file['score']}/10)")
+        print(f"Files analyzed: {summary['total_files']}")
+        print(f"Average Score: {summary['avg_score']}/10")
+        print(f"Worst File: {summary['worst_file']}")
+        print(f"Total Issues: {summary['total_issues']}")
+
+        print("\n[bold yellow]🧠 Project Insights:[/bold yellow]")
+        for insight in insights:
+            print(f"• {insight}")
 
 
 @main.command()
