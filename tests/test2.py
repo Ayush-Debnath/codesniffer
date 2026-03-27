@@ -1,5 +1,7 @@
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
+arr = [1, 2, 3, 4]
 
-console = Console()
+for i in range(len(arr)):
+    print(arr[i])
+
+if 3 in [1, 2, 3, 4]:
+    print("found")

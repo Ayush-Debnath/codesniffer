@@ -8,6 +8,7 @@ from realitycheck.rules.rules_engine import generate_feedback
 from realitycheck.scoring.scorer import calculate_score
 from realitycheck.reporter.report_generator import display_report
 from realitycheck.analyzers.ai_detector import get_ai_feedback
+from realitycheck.analyzers.performance import analyze_performance
 
 @click.group()
 def main():
@@ -19,29 +20,48 @@ def main():
 
 def process_file(file_path):
 
-    with open(file_path, "r", encoding="utf-8") as f:
-        code = f.read()
+    # 📄 Read file content
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            code = f.read()
+    except Exception as e:
+        print(f"[red]Error reading {file_path}:[/red] {str(e)}")
+        return None
 
+    # 🌳 Parse AST
     tree = parse_file(file_path)
 
     if isinstance(tree, dict) and "error" in tree:
         print(f"[red]Syntax Error in {file_path}:[/red] {tree['error']}")
         return None
 
+    # 🧠 Run analyzers
     structure = extract_structure(tree)
     complexity = analyze_complexity(tree)
     smells = analyze_code_smells(tree)
+    performance_issues = analyze_performance(tree)
 
+    # 🧾 Generate rule-based feedback
     feedback = generate_feedback(structure, complexity, smells)
+
+    # ⚡ Add performance insights
+    feedback.extend(performance_issues)
+
+    # 📊 Score calculation
     score, breakdown = calculate_score(complexity, smells)
+
+    # 🤖 AI feedback
     ai_feedback = get_ai_feedback(code)
 
+    # 🎨 Display report
     display_report(score, breakdown, feedback, ai_feedback)
 
+    # 📦 Return for aggregation (project-level)
     return {
         "file": file_path,
-        "score": score
-    }
+        "score": score,
+        "issues": len(feedback) + len(ai_feedback)
+}
 
 
 def process_folder(folder_path):
