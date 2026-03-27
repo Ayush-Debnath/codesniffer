@@ -11,6 +11,7 @@ from realitycheck.analyzers.ai_detector import get_ai_feedback
 from realitycheck.analyzers.performance import analyze_performance
 from realitycheck.analyzers.security import analyze_security
 from realitycheck.core.aggregator import aggregate_project, generate_project_insights
+from realitycheck.analyzers.ai_project import get_project_ai_insights
 
 
 @click.group()
@@ -99,6 +100,12 @@ def process_folder(folder_path):
         print("\n[bold yellow]🧠 Project Insights:[/bold yellow]")
         for insight in insights:
             print(f"• {insight}")
+    
+    project_ai = get_project_ai_insights(summary, results)
+
+    print("\n[bold magenta]🤖 AI Project Review:[/bold magenta]")
+    for item in project_ai:
+        print(f"• {item}")
 
 
 @main.command()
