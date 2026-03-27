@@ -9,6 +9,7 @@ from realitycheck.scoring.scorer import calculate_score
 from realitycheck.reporter.report_generator import display_report
 from realitycheck.analyzers.ai_detector import get_ai_feedback
 from realitycheck.analyzers.performance import analyze_performance
+from realitycheck.analyzers.security import analyze_security
 
 @click.group()
 def main():
@@ -40,12 +41,14 @@ def process_file(file_path):
     complexity = analyze_complexity(tree)
     smells = analyze_code_smells(tree)
     performance_issues = analyze_performance(tree)
+    security_issues = analyze_security(tree)
 
     # 🧾 Generate rule-based feedback
     feedback = generate_feedback(structure, complexity, smells)
 
     # ⚡ Add performance insights
     feedback.extend(performance_issues)
+    feedback.extend(security_issues)
 
     # 📊 Score calculation
     score, breakdown = calculate_score(complexity, smells)

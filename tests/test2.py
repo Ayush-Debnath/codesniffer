@@ -1,7 +1,5 @@
-arr = [1, 2, 3, 4]
+password = "12345"
 
-for i in range(len(arr)):
-    print(arr[i])
+eval("print('hello')")
 
-if 3 in [1, 2, 3, 4]:
-    print("found")
+f = open("data.txt", "r")
