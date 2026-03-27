@@ -1,28 +1,59 @@
-# codesniffer
-Code quality analyzer that detects inefficiencies, code smells, and other stuff.
+# 🚨 RealityCheck AI
 
-# RealityCheck AI 🚨
+> AI-powered code analysis tool that evaluates code quality, detects inefficiencies, and provides brutally honest feedback like a senior engineer.
 
-AI-powered code analyzer that tells you the truth about your code.
+---
 
-## Features
-- AST-based code analysis
-- Complexity detection
-- Code smell detection
-- AI-powered feedback (Gemini)
+## 🧠 Features
 
-## Example Output
-(paste your output screenshot)
+### 🔍 Multi-Dimensional Code Analysis
+- Complexity Analysis (loops, nesting, function size)
+- Code Smell Detection (bad naming, unused logic)
+- Performance Analysis (inefficient loops, redundant computations)
+- Security Analysis (eval usage, hardcoded secrets)
+- Design Analysis (god functions, poor modularity)
 
-## Why this exists
-Most tools check syntax.
-RealityCheck checks logic.
+---
 
-<!-- ## Installation
+### 🤖 AI-Powered Feedback
+- File-level AI code review using Gemini
+- Project-level AI insights for overall architecture and design
+
+---
+
+### 📊 Intelligent Scoring System
+- Code Quality Score (0–10)
+- Breakdown:
+  - Performance
+  - Readability
+  - Design
+
+---
+
+### 📁 Project-Level Analysis
+- Analyze entire folders/codebases
+- Detect worst-performing files
+- Generate project-wide insights
+
+---
+
+## ⚡ Installation
+
 ```bash
-pip install realitycheck-ai -->
+pip install realitycheck-ai==0.2.2
+```
+---
 
-<!-- realitycheck analyze file.py -->
+
+## ⚡ Usage
+
+```bash
+realitycheck analyze file.py
+```
+
+```bash
+realitycheck analyze my_project/
+```
 
 
 

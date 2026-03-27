@@ -1,6 +1,6 @@
 [project]
 name = "realitycheck-ai"
-version = "0.2.0"
+version = "0.2.2"
 description = "AI-powered code quality analyzer"
 authors = [{name = "Ayush"}]
 dependencies = ["rich", "click","google-genai"]
