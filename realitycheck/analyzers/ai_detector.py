@@ -2,19 +2,17 @@ import os
 from google import genai
 
 def get_ai_feedback(code):
-
     api_key = os.getenv("GEMINI_API_KEY")
 
     if not api_key:
-        return ["⚠️ Gemini API key not found"]
+        return ["⚠️ AI disabled (no API key)"]
 
     try:
         client = genai.Client(api_key=api_key)
 
         response = client.models.generate_content(
             model="gemini-2.5-flash",
-            contents=f"""
-You are a senior software engineer.
+            contents=f"""You are a senior software engineer.
 
 Analyze the following Python code and give short, brutally honest feedback.
 
@@ -27,11 +25,13 @@ Focus on:
 Keep it concise.
 
 Code:
-{code}
-"""
+{code}"""
         )
 
-        return [response.text.strip()]
+        response_text = response.text.strip()
+        lines = [line.strip("* ").strip() for line in response_text.split("\n") if line.strip()]
 
-    except Exception as e:
-        return [f"⚠️ AI analysis failed: {str(e)}"]
+        return lines
+
+    except Exception:
+        return ["⚠️ AI analysis unavailable (fallback mode active)"]

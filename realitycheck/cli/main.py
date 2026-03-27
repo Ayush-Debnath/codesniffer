@@ -18,6 +18,16 @@ def main():
 def analyze(file_path):
     tree = parse_file(file_path)
 
+    import os
+
+    if not os.path.exists(file_path):
+        print("[red]Error: File does not exist[/red]")
+        return
+
+    if not file_path.endswith(".py"):
+        print("[red]Error: Only Python files supported[/red]")
+        return
+
     if isinstance(tree, dict) and "error" in tree:
         print(f"[red]Syntax Error:[/red] {tree['error']}")
         return
@@ -33,10 +43,8 @@ def analyze(file_path):
 
     with open(file_path, "r", encoding="utf-8") as f:
         code = f.read()
-    
     ai_feedback = get_ai_feedback(code)
-    feedback.extend(ai_feedback)
-    display_report(score, breakdown, feedback)
+    display_report(score, breakdown, feedback, ai_feedback)
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,7 @@ from rich.table import Table
 
 console = Console()
 
-def display_report(score, breakdown, feedback):
+def display_report(score, breakdown, feedback,ai_feedback):
     
     # 🔥 Title Panel
     console.print(Panel.fit("🚨 RealityCheck Report", style="bold red"))
@@ -27,3 +27,14 @@ def display_report(score, breakdown, feedback):
     console.print("\n[bold yellow]Feedback:[/bold yellow]")
     for item in feedback:
         console.print(f"• {item}")
+    
+    # 🤖 AI feedback
+    console.print("\n[bold magenta]🤖 AI Review:[/bold magenta]")
+    for item in ai_feedback:
+        console.print(f"• {item}")
+
+
+
+
+
+
