@@ -6,6 +6,7 @@ from realitycheck.analyzers.code_smells import analyze_code_smells
 from realitycheck.rules.rules_engine import generate_feedback
 from realitycheck.scoring.scorer import calculate_score
 from realitycheck.reporter.report_generator import display_report
+from realitycheck.analyzers.ai_detector import get_ai_feedback
 
 @click.group()
 def main():
@@ -28,6 +29,13 @@ def analyze(file_path):
     feedback = generate_feedback(structure, complexity, smells)
     score, breakdown = calculate_score(complexity, smells)
 
+    
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        code = f.read()
+    
+    ai_feedback = get_ai_feedback(code)
+    feedback.extend(ai_feedback)
     display_report(score, breakdown, feedback)
 
 if __name__ == "__main__":
